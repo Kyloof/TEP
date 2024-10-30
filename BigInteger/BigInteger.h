@@ -42,8 +42,9 @@ private:
 
 
     //Fun
-    BigInteger add(const BigInteger &BigInt,const BigInteger &otherBigInt);
-    BigInteger substract(const BigInteger &BigInt, const BigInteger &otherBigInt);
+    BigInteger add(const BigInteger &bigInt,const BigInteger &otherBigInt);
+    BigInteger substract(const BigInteger &left, const BigInteger &right);
+    BigInteger multiply(const BigInteger &left, const BigInteger &right);
     void increaseCapacity();
     void decreaseCapacity();
     void allocateNewDigit(int number);

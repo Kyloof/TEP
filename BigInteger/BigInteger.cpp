@@ -39,6 +39,7 @@ BigInteger::~BigInteger() {
     delete[] numbers;
     this->size = 0;
     this->capacity = 0;
+    this->negative = false;
 }//Finished
 //Constructors - End
 
@@ -62,6 +63,7 @@ void BigInteger::operator=(int newInt) {
     this->capacity = 0;
 
     if (newInt == 0) {
+        this->negative = false;
         allocateNewDigit(0);
         return;
     }
@@ -133,22 +135,82 @@ BigInteger BigInteger::operator-(const BigInteger &otherBigInt) {
     return result;
 }//Finished
 
+BigInteger BigInteger::operator*(int newInt) {
+    BigInteger bigInteger;
+    if (size == 0) {
+        return bigInteger;
+    }
+
+    BigInteger other = newInt;
+    return *this * other;
+}
+
+
+BigInteger BigInteger::operator*(const BigInteger &otherBigInt) {
+    BigInteger result;
+    if ((this->size == 1 || otherBigInt.size == 1) && (this->numbers[0] == 0 || otherBigInt.numbers[0] == 0)) {
+        result = 0;
+        return result;
+    }
+    if ((this->negative && !otherBigInt.negative) || (!this->negative && otherBigInt.negative)) {
+        result = multiply(*this, otherBigInt);
+        result.negative = true;
+        return result;
+    }
+    result = multiply(*this, otherBigInt);
+    return result;
+}
+
 
 
 //Operators - End
 
 //Fun - Start
 
-BigInteger BigInteger::add(const BigInteger &BigInt,const BigInteger &otherBigInt) {
+BigInteger BigInteger::multiply(const BigInteger &left, const BigInteger &right) {
+    BigInteger result;
+    BigInteger* results = new BigInteger[right.size];
+    int numb;
+    int temp = 0;
+    int power = 0;
+    for (int i = 0; i < right.size; i++) {
+        for(int j = 0; j < power; j++) {
+            results[i].allocateNewDigit(0);
+        }
+        for (int j = 0; j < left.size; j++) {
+            numb = right.numbers[i] * left.numbers[j] + temp;
+            temp = numb/10;
+            numb -= temp * 10;
+            results[i].allocateNewDigit(numb);
+        }
+        while (temp!=0) {
+            results[i].allocateNewDigit(temp);
+            temp = temp/10;
+        }
+        power++;
+    }
+
+    for(int i = 0; i < right.size - 1; i++) {
+        results[i+1] = add(results[i],results[i+1]);
+    }
+
+
+    result = results[right.size-1];
+    delete[] results;
+    return result;
+}
+
+
+BigInteger BigInteger::add(const BigInteger &bigInt,const BigInteger &otherBigInt) {
     BigInteger result;
     int temp = 0;
     int i = 0;
     int numb = 0;
 
     //while can add element between 2 lists
-    while (i < BigInt.size && i < otherBigInt.size) {
+    while (i < bigInt.size && i < otherBigInt.size) {
 
-        numb = BigInt.numbers[i] + otherBigInt.numbers[i] + temp;
+        numb = bigInt.numbers[i] + otherBigInt.numbers[i] + temp;
         temp = numb / 10;
         numb = numb - temp*10;
 
@@ -157,7 +219,7 @@ BigInteger BigInteger::add(const BigInteger &BigInt,const BigInteger &otherBigIn
     }
 
     //if otherBigInt is larger than the BigInt, add the rest to result
-    if (otherBigInt.size > BigInt.size) {
+    if (otherBigInt.size > bigInt.size) {
         for(int j = i; j < otherBigInt.size; j++) {
 
             numb = otherBigInt.numbers[j] + temp;
@@ -168,10 +230,10 @@ BigInteger BigInteger::add(const BigInteger &BigInt,const BigInteger &otherBigIn
         }
     }
     //if BigInt is larger than the otherBigInt, add the rest to result
-    else if (size > otherBigInt.size) {
-        for(int j = i; j < size; j++) {
+    else if (bigInt.size > otherBigInt.size) {
+        for(int j = i; j < bigInt.size; j++) {
 
-            numb = numbers[j] + temp;
+            numb = bigInt.numbers[j] + temp;
             temp = numb / 10;
             numb = numb - temp*10;
 
