@@ -341,7 +341,7 @@ int main() {
     bigInteger = 15;
     bigInteger2 = 15;
     bigInteger = bigInteger * bigInteger2;
-    std::cout << "result: " << bigInteger.toString() << " expected: " << 225 << std::endl<< std::endl;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 225 << std::endl << std::endl;
 
     std::cout << "3.2. both negative" << std::endl << std::endl;
     std::cout << "3.2.1 size1 > size2" << std::endl;
@@ -354,7 +354,7 @@ int main() {
     bigInteger = -15;
     bigInteger2 = -15;
     bigInteger = bigInteger * bigInteger2;
-    std::cout << "result: " << bigInteger.toString() << " expected: " << 225 << std::endl<< std::endl;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 225 << std::endl << std::endl;
 
     std::cout << "3.3. no1 positive, no2 negative" << std::endl << std::endl;
     std::cout << "3.3.1 size1 > size2" << std::endl;
@@ -367,7 +367,7 @@ int main() {
     bigInteger = 15;
     bigInteger2 = -15;
     bigInteger = bigInteger * bigInteger2;
-    std::cout << "result: " << bigInteger.toString() << " expected: " << -225 << std::endl<< std::endl;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << -225 << std::endl << std::endl;
 
     std::cout << "3.4. no1 negative, no2 positive" << std::endl << std::endl;
     std::cout << "3.4.1 size1 > size2" << std::endl;
@@ -380,7 +380,7 @@ int main() {
     bigInteger = -15;
     bigInteger2 = 15;
     bigInteger = bigInteger * bigInteger2;
-    std::cout << "result: " << bigInteger.toString() << " expected: " << -225 << std::endl<< std::endl;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << -225 << std::endl << std::endl;
 
     std::cout << "3.4. one of no = 0" << std::endl << std::endl;
     std::cout << "3.4.2 no1 = 0" << std::endl;
@@ -395,6 +395,72 @@ int main() {
     bigInteger = bigInteger * bigInteger2;
     std::cout << "result: " << bigInteger.toString() << " expected: " << 0 << std::endl;
 
+    std::cout << "Division tests" << std::endl << std::endl;
+
+    std::cout << "4.1. both positive" << std::endl << std::endl;
+    std::cout << "4.1.1 size1 > size2" << std::endl;
+    bigInteger = 120;
+    bigInteger2 = 10;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 12 << std::endl;
+
+    std::cout << "4.1.2 size1 = size2" << std::endl;
+    bigInteger = 228;
+    bigInteger2 = 15;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 15 << std::endl << std::endl;
+
+    std::cout << "4.2. both negative" << std::endl << std::endl;
+    std::cout << "4.2.1 size1 > size2" << std::endl;
+    bigInteger = -120;
+    bigInteger2 = -10;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 12 << std::endl;
+
+    std::cout << "4.2.2 size1 = size2" << std::endl;
+    bigInteger = -225;
+    bigInteger2 = -15;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 15 << std::endl << std::endl;
+
+    std::cout << "4.3. no1 positive, no2 negative" << std::endl << std::endl;
+    std::cout << "4.3.1 size1 > size2" << std::endl;
+    bigInteger = 120;
+    bigInteger2 = -10;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << -12 << std::endl;
+
+    std::cout << "4.3.2 size1 = size2" << std::endl;
+    bigInteger = 225;
+    bigInteger2 = -15;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << -15 << std::endl << std::endl;
+
+    std::cout << "4.4. no1 negative, no2 positive" << std::endl << std::endl;
+    std::cout << "4.4.1 size1 > size2" << std::endl;
+    bigInteger = -120;
+    bigInteger2 = 10;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << -12 << std::endl;
+
+    std::cout << "4.4.2 size1 = size2" << std::endl;
+    bigInteger = -225;
+    bigInteger2 = 15;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << -15 << std::endl << std::endl;
+
+    std::cout << "4.5. one of no = 0" << std::endl << std::endl;
+    std::cout << "4.5.1 no1 = 0" << std::endl;
+    bigInteger = 0;
+    bigInteger2 = 15;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: " << 0 << std::endl;
+
+    std::cout << "4.5.2 no2 = 0" << std::endl;
+    bigInteger = 15;
+    bigInteger2 = 0;
+    bigInteger = bigInteger / bigInteger2;
+    std::cout << "result: " << bigInteger.toString() << " expected: "  << std::endl;
     return 0;
 }
 

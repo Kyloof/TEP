@@ -114,7 +114,7 @@ BigInteger BigInteger::operator-(int newInt) {
 
     BigInteger temp = newInt;
     return *this - temp;
-    }//Finished
+}//Finished
 
 BigInteger BigInteger::operator-(const BigInteger &otherBigInt) {
     //left-, right+
@@ -143,8 +143,7 @@ BigInteger BigInteger::operator*(int newInt) {
 
     BigInteger other = newInt;
     return *this * other;
-}
-
+}//Finished
 
 BigInteger BigInteger::operator*(const BigInteger &otherBigInt) {
     BigInteger result;
@@ -159,48 +158,38 @@ BigInteger BigInteger::operator*(const BigInteger &otherBigInt) {
     }
     result = multiply(*this, otherBigInt);
     return result;
-}
+}//Finished
 
+BigInteger BigInteger::operator/(int newInt) {
+    BigInteger result;
+    if (newInt == 0 || size == 0) {
+        return result;
+    }
 
+    BigInteger other = newInt;
+    return *this / other;
+}//Finished
 
+BigInteger BigInteger::operator/(const BigInteger &otherBigInt) {
+    BigInteger result;
+    if (this->size == 1 && this->numbers[0] == 0) {
+        result = 0;
+        return result;
+    }
+    if (otherBigInt.size == 1 && otherBigInt.numbers[0] == 0) {
+        return result;
+    }
+    if ((this->negative && !otherBigInt.negative) || (!this->negative && otherBigInt.negative)) {
+        result = divide(*this, otherBigInt);
+        result.negative = true;
+        return result;
+    }
+    result = divide(*this, otherBigInt);
+    return result;
+}//Finished
 //Operators - End
 
 //Fun - Start
-
-BigInteger BigInteger::multiply(const BigInteger &left, const BigInteger &right) {
-    BigInteger result;
-    BigInteger* results = new BigInteger[right.size];
-    int numb;
-    int temp = 0;
-    int power = 0;
-    for (int i = 0; i < right.size; i++) {
-        for(int j = 0; j < power; j++) {
-            results[i].allocateNewDigit(0);
-        }
-        for (int j = 0; j < left.size; j++) {
-            numb = right.numbers[i] * left.numbers[j] + temp;
-            temp = numb/10;
-            numb -= temp * 10;
-            results[i].allocateNewDigit(numb);
-        }
-        while (temp!=0) {
-            results[i].allocateNewDigit(temp);
-            temp = temp/10;
-        }
-        power++;
-    }
-
-    for(int i = 0; i < right.size - 1; i++) {
-        results[i+1] = add(results[i],results[i+1]);
-    }
-
-
-    result = results[right.size-1];
-    delete[] results;
-    return result;
-}
-
-
 BigInteger BigInteger::add(const BigInteger &bigInt,const BigInteger &otherBigInt) {
     BigInteger result;
     int temp = 0;
@@ -331,6 +320,92 @@ BigInteger BigInteger::substract(const BigInteger &left, const BigInteger &right
     }
     result.decreaseCapacity();
     return result;
+}//Finished
+
+BigInteger BigInteger::multiply(const BigInteger &left, const BigInteger &right) {
+    BigInteger result;
+    BigInteger* results = new BigInteger[right.size];
+    int numb;
+    int temp = 0;
+    int power = 0;
+    for (int i = 0; i < right.size; i++) {
+        for(int j = 0; j < power; j++) {
+            results[i].allocateNewDigit(0);
+        }
+        for (int j = 0; j < left.size; j++) {
+            numb = right.numbers[i] * left.numbers[j] + temp;
+            temp = numb/10;
+            numb -= temp * 10;
+            results[i].allocateNewDigit(numb);
+        }
+        while (temp!=0) {
+            results[i].allocateNewDigit(temp);
+            temp = temp/10;
+        }
+        power++;
+    }
+
+    for(int i = 0; i < right.size - 1; i++) {
+        results[i+1] = add(results[i],results[i+1]);
+    }
+
+
+    result = results[right.size-1];
+    delete[] results;
+    return result;
+}//Finished
+
+BigInteger BigInteger::divide(const BigInteger &left, const BigInteger &right) {
+    BigInteger result;
+    BigInteger temp;
+    int multi;
+    int showvalueresult;
+    for (int i = left.size - 1; i >= 0; i--) {
+        temp = temp * 10 + left.numbers[i];
+        int showvaluetemp = temp.returnNumber();
+        int showValueRight = right.returnNumber();
+
+        multi = 0;
+        while (compareAbs(temp,right)) {
+            temp = substract(temp,right);
+            showvaluetemp = temp.returnNumber();
+            multi++;
+        }
+        showvaluetemp = temp.returnNumber();
+        result = result * 10 + multi;
+        showvalueresult = result.returnNumber();
+    }
+
+    return result;
+}//Finished
+
+bool BigInteger::compareAbs(const BigInteger &left, const BigInteger &right) {
+
+
+    // if different size
+    if (left.size != right.size) {
+        if (left.size > right.size) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    //if equal
+    int i = left.size-1;
+    bool leftIsLargerOrEq = (numbers[i] >= right.numbers[i] ? true : false);
+    while (left.numbers[i] == right.numbers[i]) {
+        i-=1;
+        if (left.numbers[i] != right.numbers[i]) {
+            return (left.numbers[i] >= right.numbers[i] ? true : false);
+            break;
+        }
+        // left == right
+        if (i == 0 && left.numbers[i] == right.numbers[i]) {
+            return true;
+        }
+    }
+    return leftIsLargerOrEq;
 }//Finished
 
 void BigInteger::increaseCapacity() {
