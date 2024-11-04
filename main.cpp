@@ -10,6 +10,9 @@
 #include "insertCols/insertCols.h"
 #include "BigInteger/BigInteger.h"
 
+
+
+
 int main() {
     std::cout << "---------------------------------------------------------------" << std::endl;
     std::cout << std::endl;
@@ -461,6 +464,14 @@ int main() {
     bigInteger2 = 0;
     bigInteger = bigInteger / bigInteger2;
     std::cout << "result: " << bigInteger.toString() << " expected: "  << std::endl;
+
+    std::cout <<  std::endl;
+
+    std::cout << "operator >=" << std::endl;
+
+    123 >= bigInteger >= bigInteger2;
+    std::cout << bigInteger2.toString();
+
     return 0;
 }
 

@@ -9,6 +9,11 @@
 
 
 class BigInteger {
+    //friend Funkcja jest funkcją, która nie jest składową klasy, ale ma dostęp do prywatnych i chronionych składowych klasy.
+    // poniewaz int jest po lewej stronie, nie mozemy uzyc member function tylko trzeba robic friuenda
+    //byl slajd na wykladzie
+    friend BigInteger operator>=(int left, BigInteger &right);
+
 public:
     //Constructors
     BigInteger();
@@ -19,6 +24,7 @@ public:
     //Operators
     void operator= (int newInt);
     void operator= (const BigInteger &otherBigInt);
+    BigInteger operator>= (BigInteger &otherBigInt);
     BigInteger operator+ (int newInt);
     BigInteger operator+ (const BigInteger &otherBigInt);
     BigInteger operator- (int newInt);
@@ -28,19 +34,16 @@ public:
     BigInteger operator/ (int newInt);
     BigInteger operator/ (const BigInteger &otherBigInt);
 
+
     //Fun
     int returnNumber() const;
     std::string toString();
-
-
 
 private:
     int *numbers;
     int size;
     int capacity;
     bool negative;
-
-
 
     //Fun
     BigInteger add(const BigInteger &bigInt,const BigInteger &otherBigInt);
@@ -52,6 +55,7 @@ private:
     void decreaseCapacity();
     void allocateNewDigit(int number);
 };
+
 
 
 

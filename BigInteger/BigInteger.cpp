@@ -379,6 +379,18 @@ BigInteger BigInteger::divide(const BigInteger &left, const BigInteger &right) {
     return result;
 }//Finished
 
+BigInteger BigInteger::operator>=(BigInteger &otherBigInt) {
+    otherBigInt.operator=(*this);
+    return *this;
+}
+
+
+//friend function
+BigInteger operator>=(int left, BigInteger &right) {
+    right = left;
+    return right;
+}
+
 bool BigInteger::compareAbs(const BigInteger &left, const BigInteger &right) {
 
 
