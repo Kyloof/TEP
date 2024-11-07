@@ -384,8 +384,6 @@ BigInteger BigInteger::operator>=(BigInteger &otherBigInt) {
     return *this;
 }
 
-
-//friend function
 BigInteger operator>=(int left, BigInteger &right) {
     right = left;
     return right;

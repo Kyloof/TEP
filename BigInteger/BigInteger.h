@@ -9,10 +9,6 @@
 
 
 class BigInteger {
-    //friend Funkcja jest funkcją, która nie jest składową klasy, ale ma dostęp do prywatnych i chronionych składowych klasy.
-    // poniewaz int jest po lewej stronie, nie mozemy uzyc member function tylko trzeba robic friuenda
-    //byl slajd na wykladzie
-    friend BigInteger operator>=(int left, BigInteger &right);
 
 public:
     //Constructors
@@ -55,8 +51,8 @@ private:
     void decreaseCapacity();
     void allocateNewDigit(int number);
 };
-
-
+//non member func
+BigInteger operator>=(int left, BigInteger &right);
 
 
 #endif //BIGINTEGER_H
